@@ -1,10 +1,16 @@
 # Pre-requisites
 install python 3.7+
+
 install pip
+
 pip install ansible
+
 curl -sSL http://bit.ly/2ysbOFE | bash -s 
+
 brew install jq
+
 brew install moreutils
+
 ansible-galaxy install ibm.blockchain_platform_manager
 
 # Resolve Errors
