@@ -1,3 +1,82 @@
+# Pre-requisites
+install python 3.7+
+install pip
+pip install ansible
+curl -sSL http://bit.ly/2ysbOFE | bash -s 
+brew install jq
+brew install moreutils
+ansible-galaxy install ibm.blockchain_platform_manager
+
+# Resolve Errors
+
+### Invalid Chunk Length Error:
+
+```
+TASK [ibm.blockchain_platform_manager : Start peer container] ************************************************************************************************************************************************
+fatal: [localhost]: FAILED! => {
+  "changed": false, 
+  "msg": "Error inspecting container: (\"Connection broken: InvalidChunkLength(got length '', 0 bytes read)\", InvalidChunkLength(got length '', 0 bytes read))"
+}
+```
+solution: 
+clean all docker container and images
+
+
+
+### Contract Endorsement Error:
+```
+TASK [ibm.blockchain_platform_manager : Submit system channel configuration update envelope] ***************************
+fatal: [localhost]: FAILED! => {
+  "changed": true, 
+  "cmd": ["peer", "channel", "update", "-f", "/var/folders/_c/1n9j573122d91nqp0dg1lyxc0000gn/T/ansible.nh9JPk/config_update_as_envelope.pb", "-o", "localhost:17051", "-c", "testchainid", "--tls", "--cafile", "/[Directory Path]/blockchain-network-ansible/four-org-network/wallets/Orderer/tls-root.pem", "--ordererTLSHostnameOverride", "orderer.example.com"], 
+  "delta": "0:00:00.041882", 
+  "end": "2020-11-27 13:00:08.366540", 
+  "msg": "non-zero return code", 
+  "rc": 1, 
+  "start": "2020-11-27 13:00:08.324658", 
+  "stderr": "\u001b[34m2020-11-27 13:00:08.355 EST [channelCmd] InitCmdFactory -> INFO 001\u001b[0m Endorser and orderer connections initialized\nError: got unexpected status: BAD_REQUEST -- error applying config update to existing channel 'testchainid': error authorizing update: error validating DeltaSet: policy for [Value]  /Channel/Consortiums/SampleConsortium/Org1MSP/MSP not satisfied: signature set did not satisfy policy", 
+  "stderr_lines": [
+    "\u001b[34m2020-11-27 13:00:08.355 EST [channelCmd] InitCmdFactory -> INFO 001\u001b[0m Endorser and orderer connections initialized", 
+        "Error: got unexpected status: BAD_REQUEST -- error applying config update to existing channel 'testchainid': error authorizing update: error validating DeltaSet: policy for [Value]  /Channel/Consortiums/SampleConsortium/Org1MSP/MSP not satisfied: signature set did not satisfy policy"
+  ], 
+  "stdout": "", 
+  "stdout_lines": []
+}
+```
+solution:
+check in the yml file, make sure `endorsement_policy` does not contain spaces in the string. 
+
+
+
+### Signature Error:
+```
+TASK [ibm.blockchain_platform_manager : Submit system channel configuration update envelope] *****************************************************************************************************************
+fatal: [localhost]: FAILED! => {
+  "changed": true, 
+  "cmd": ["peer", "channel", "update", "-f", "/var/folders/_c/1n9j573122d91nqp0dg1lyxc0000gn/T/ansible.OkzxsI/config_update_as_envelope.pb", "-o", "localhost:17051", "-c", "testchainid", "--tls", "--cafile", "/[Directory Path]/blockchain-network-ansible/one-org-network/wallets/Orderer/tls-root.pem", "--ordererTLSHostnameOverride", "orderer.example.com"], 
+  "delta": "0:00:00.034809", 
+  "end": "2020-11-30 09:13:38.770120", 
+  "msg": "non-zero return code", 
+  "rc": 1, 
+  "start": "2020-11-30 09:13:38.735311", 
+  "stderr": "\u001b[34m2020-11-30 09:13:38.763 EST [channelCmd] InitCmdFactory -> INFO 001\u001b[0m Endorser and orderer connections initialized\nError: got unexpected status: BAD_REQUEST -- error applying config update to existing channel 'testchainid': error authorizing update: error validating DeltaSet: policy for [Value]  /Channel/Consortiums/SampleConsortium/Org1MSP/MSP not satisfied: signature set did not satisfy policy", 
+  "stderr_lines": [
+    "\u001b[34m2020-11-30 09:13:38.763 EST [channelCmd] InitCmdFactory -> INFO 001\u001b[0m Endorser and orderer connections initialized", 
+    "Error: got unexpected status: BAD_REQUEST -- error applying config update to existing channel 'testchainid': error authorizing update: error validating DeltaSet: policy for [Value]  /Channel/Consortiums/SampleConsortium/Org1MSP/MSP not satisfied: signature set did not satisfy policy"
+  ], 
+  "stdout": "", 
+  "stdout_lines": []
+}
+```
+solution:
+`ansible-playbook uninstall.yml`
+
+
+
+
+
+
+
 # four-org-network
 
 An Ansible playbook for building a Hyperledger Fabric network with four organizations, `Org1`, `Org2`, `Org3` and `Org4`. Each organization has two peers. The two peers are configured with a single channel, `channel1`. The FabCar sample contract is instantiated on this channel, with an endorsement policy stating that all organizations must endorse any transactions.
