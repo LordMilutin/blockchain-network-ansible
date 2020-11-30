@@ -7,6 +7,12 @@ brew install jq
 brew install moreutils
 ansible-galaxy install ibm.blockchain_platform_manager
 
+# To Run
+```ansible-playbook playbook.yml```
+
+# To Clean up
+```ansible-playbook uninstall.yml```
+
 # Resolve Errors
 
 ### Invalid Chunk Length Error:
