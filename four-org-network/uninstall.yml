@@ -1,0 +1,395 @@
+- name: Uninstall blockchain infrastructure and smart contracts
+  hosts: localhost
+  vars: 
+    state: absent
+    infrastructure:
+      type: docker
+      docker:
+        network: ibp_network
+      saas: "{{ lookup('file', 'service-creds.json') | from_json }}"
+      software:
+        api_endpoint: https://ibp-console.example.org:32000
+        api_key: xxxxxxxx
+        api_secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    organizations:
+      - &Org1
+        msp:
+          id: "Org1MSP"
+          admin:
+            identity: "org1Admin"
+            secret: "org1Adminpw"
+          ibp:
+            display_name: "Org1 MSP"
+        ca: &Org1CA
+          id: "Org1CA"
+          admin_identity: "admin"
+          admin_secret: "adminpw"
+          tls:
+            enabled: true
+          docker:
+            name: ca.org1.example.com
+            hostname: ca.org1.example.com
+            port: 18050
+          ibp:
+            display_name: "Org1 CA"
+        peers:
+          - &Org1Peer1
+            id: "Org1Peer1"
+            identity: "org1peer1"
+            secret: "org1peer1pw"
+            database_type: couchdb
+            tls:
+              enabled: true
+              identity: "org1peer1tls"
+              secret: "org1peer1tlspw"
+            docker:
+              name: peer0.org1.example.com
+              hostname: peer0.org1.example.com
+              port: 18051
+              chaincode_port: 18052
+              operations_port: 18053
+              couchdb:
+                name: couchdb0.org1.example.com
+                hostname: couchdb0.org1.example.com
+                port: 18054
+            ibp:
+              display_name: "Org1 Peer1"
+          - &Org1Peer2
+            id: "Org1Peer2"
+            identity: "org1peer2"
+            secret: "org1peer2pw"
+            database_type: couchdb
+            tls:
+              enabled: true
+              identity: "org1peer2tls"
+              secret: "org1peer2tlspw"
+            docker:
+              name: peer1.org1.example.com
+              hostname: peer1.org1.example.com
+              port: 18055
+              chaincode_port: 18056
+              operations_port: 18057
+              couchdb:
+                name: couchdb1.org1.example.com
+                hostname: couchdb1.org1.example.com
+                port: 18058
+            ibp:
+              display_name: "Org1 Peer2"
+        nodes: "{{ playbook_dir }}/nodes/Org1"
+        wallet: "{{ playbook_dir }}/wallets/Org1"
+        gateways: "{{ playbook_dir }}/gateways/Org1"
+      - &Org2
+        msp:
+          id: "Org2MSP"
+          admin:
+            identity: "org2Admin"
+            secret: "org2Adminpw"
+          ibp:
+            display_name: "Org2 MSP"
+        ca: &Org2CA
+          id: "Org2CA"
+          admin_identity: "admin"
+          admin_secret: "adminpw"
+          tls:
+            enabled: true
+          docker:
+            name: ca.org2.example.com
+            hostname: ca.org2.example.com
+            port: 19050
+          ibp:
+            display_name: "Org2 CA"
+        peers:
+          - &Org2Peer1
+            id: "Org2Peer1"
+            identity: "org2peer1"
+            secret: "org2peer1pw"
+            database_type: leveldb
+            tls:
+              enabled: true
+              identity: "org2peer1tls"
+              secret: "org2peer1tlspw"
+            docker:
+              name: peer0.org2.example.com
+              hostname: peer0.org2.example.com
+              port: 19051
+              chaincode_port: 19052
+              operations_port: 19053
+              couchdb:
+                name: couchdb0.org2.example.com
+                hostname: couchdb0.org2.example.com
+                port: 19054
+            ibp:
+              display_name: "Org2 Peer1"
+          - &Org2Peer2
+            id: "Org2Peer2"
+            identity: "org2peer2"
+            secret: "org2peer2pw"
+            database_type: leveldb
+            tls:
+              enabled: true
+              identity: "org2peer2tls"
+              secret: "org2peer2tlspw"
+            docker:
+              name: peer1.org2.example.com
+              hostname: peer1.org2.example.com
+              port: 19055
+              chaincode_port: 19056
+              operations_port: 19057
+              couchdb:
+                name: couchdb1.org2.example.com
+                hostname: couchdb1.org2.example.com
+                port: 19058
+            ibp:
+              display_name: "Org2 Peer2"
+        nodes: "{{ playbook_dir }}/nodes/Org2"
+        wallet: "{{ playbook_dir }}/wallets/Org2"
+        gateways: "{{ playbook_dir }}/gateways/Org2"
+      - &Org3
+        msp:
+          id: "Org3MSP"
+          admin:
+            identity: "org3Admin"
+            secret: "org3Adminpw"
+          ibp:
+            display_name: "Org3 MSP"
+        ca: &Org3CA
+          id: "Org3CA"
+          admin_identity: "admin"
+          admin_secret: "adminpw"
+          tls:
+            enabled: true
+          docker:
+            name: ca.org3.example.com
+            hostname: ca.org3.example.com
+            port: 20050
+          ibp:
+            display_name: "Org3 CA"
+        peers:
+          - &Org3Peer1
+            id: "Org3Peer1"
+            identity: "org3peer1"
+            secret: "org3peer1pw"
+            database_type: leveldb
+            tls:
+              enabled: true
+              identity: "org3peer1tls"
+              secret: "org3peer1tlspw"
+            docker:
+              name: peer0.org3.example.com
+              hostname: peer0.org3.example.com
+              port: 20051
+              chaincode_port: 20052
+              operations_port: 20053
+              couchdb:
+                name: couchdb0.org3.example.com
+                hostname: couchdb0.org3.example.com
+                port: 20054
+            ibp:
+              display_name: "Org3 Peer1"
+          - &Org3Peer2
+            id: "Org3Peer2"
+            identity: "org3peer2"
+            secret: "org3peer2pw"
+            database_type: leveldb
+            tls:
+              enabled: true
+              identity: "org3peer2tls"
+              secret: "org3peer2tlspw"
+            docker:
+              name: peer1.org3.example.com
+              hostname: peer1.org3.example.com
+              port: 20055
+              chaincode_port: 20056
+              operations_port: 20057
+              couchdb:
+                name: couchdb1.org3.example.com
+                hostname: couchdb1.org3.example.com
+                port: 20058
+            ibp:
+              display_name: "Org3 Peer2"
+        nodes: "{{ playbook_dir }}/nodes/Org3"
+        wallet: "{{ playbook_dir }}/wallets/Org3"
+        gateways: "{{ playbook_dir }}/gateways/Org3"
+      - &Org4
+        msp:
+          id: "Org4MSP"
+          admin:
+            identity: "org4Admin"
+            secret: "org4Adminpw"
+          ibp:
+            display_name: "Org4 MSP"
+        ca: &Org4CA
+          id: "Org4CA"
+          admin_identity: "admin"
+          admin_secret: "adminpw"
+          tls:
+            enabled: true
+          docker:
+            name: ca.org4.example.com
+            hostname: ca.org4.example.com
+            port: 21050
+          ibp:
+            display_name: "Org4 CA"
+        peers:
+          - &Org4Peer1
+            id: "Org4Peer1"
+            identity: "org4peer1"
+            secret: "org4peer1pw"
+            database_type: leveldb
+            tls:
+              enabled: true
+              identity: "org4peer1tls"
+              secret: "org4peer1tlspw"
+            docker:
+              name: peer0.org4.example.com
+              hostname: peer0.org4.example.com
+              port: 21051
+              chaincode_port: 21052
+              operations_port: 21053
+              couchdb:
+                name: couchdb0.org4.example.com
+                hostname: couchdb0.org4.example.com
+                port: 21054
+            ibp:
+              display_name: "Org4 Peer1"
+          - &Org4Peer2
+            id: "Org4Peer2"
+            identity: "org4peer2"
+            secret: "org4peer2pw"
+            database_type: leveldb
+            tls:
+              enabled: true
+              identity: "org4peer2tls"
+              secret: "org4peer2tlspw"
+            docker:
+              name: peer1.org4.example.com
+              hostname: peer1.org4.example.com
+              port: 21055
+              chaincode_port: 21056
+              operations_port: 21057
+              couchdb:
+                name: couchdb1.org4.example.com
+                hostname: couchdb1.org4.example.com
+                port: 21058
+            ibp:
+              display_name: "Org4 Peer2"
+        nodes: "{{ playbook_dir }}/nodes/Org4"
+        wallet: "{{ playbook_dir }}/wallets/Org4"
+        gateways: "{{ playbook_dir }}/gateways/Org4"
+      - &OrdererOrg
+        msp:
+          id: "OrdererMSP"
+          admin:
+            identity: "ordererAdmin"
+            secret: "ordererAdminpw"
+          ibp:
+            display_name: "Orderer MSP"
+        ca: &OrdererCA
+          id: "OrdererCA"
+          admin_identity: "admin"
+          admin_secret: "adminpw"
+          tls:
+            enabled: true
+          docker:
+            name: ca.orderer.example.com
+            hostname: ca.orderer.example.com
+            port: 17050
+          ibp:
+            display_name: "Orderer CA"
+        orderer: &Orderer
+          id: "Orderer1"
+          identity: "orderer1"
+          secret: "orderer1pw"
+          tls:
+            enabled: true
+            identity: "orderer1tls"
+            secret: "orderer1tlspw"
+          consortium:
+            members:
+              - *Org1
+              - *Org2
+              - *Org3
+              - *Org4
+          docker:
+            name: orderer.example.com
+            hostname: orderer.example.com
+            port: 17051
+            operations_port: 17052
+          ibp:
+            display_name: "Orderer1"
+            cluster_name: "OrdererCluster"
+        nodes: "{{ playbook_dir }}/nodes/Orderer"
+        wallet: "{{ playbook_dir }}/wallets/Orderer"
+        gateways: "{{ playbook_dir }}/gateways/Orderer"
+    channels:
+      - &Channel1
+        name: channel1
+        orderer: *Orderer
+        members:
+          - <<: *Org1
+            committing_peers:
+              - *Org1Peer1
+              - *Org1Peer2
+            anchor_peers:
+              - *Org1Peer1
+          - <<: *Org2
+            committing_peers:
+              - *Org2Peer1
+              - *Org2Peer2
+            anchor_peers:
+              - *Org2Peer1
+          - <<: *Org3
+            committing_peers:
+              - *Org3Peer1
+              - *Org3Peer2
+            anchor_peers:
+              - *Org3Peer1
+          - <<: *Org4
+            committing_peers:
+              - *Org4Peer1
+              - *Org4Peer2
+            anchor_peers:
+              - *Org4Peer1
+    contracts:
+      - name: fabcar
+        version: 1.0.0
+        package: "{{ playbook_dir }}/fabcar@1.0.0.cds"
+        channels:
+          - <<: *Channel1
+            endorsement_policy: "AND('Org1MSP.member','Org2MSP.member','Org3MSP.member','Org4MSP.member')"
+            endorsing_members:
+              - <<: *Org1
+                endorsing_peers:
+                  - <<: *Org1Peer1
+              - <<: *Org2
+                endorsing_peers:
+                  - <<: *Org2Peer1
+              - <<: *Org3
+                endorsing_peers:
+                  - <<: *Org3Peer1
+              - <<: *Org4
+                endorsing_peers:
+                  - <<: *Org4Peer1
+    gateways:
+      - name: Org1 gateway
+        organization:
+          <<: *Org1
+          gateway_peers:
+            - <<: *Org1Peer1
+      - name: Org2 gateway
+        organization:
+          <<: *Org2
+          gateway_peers:
+            - <<: *Org2Peer1
+      - name: Org3 gateway
+        organization:
+          <<: *Org3
+          gateway_peers:
+            - <<: *Org3Peer1
+      - name: Org4 gateway
+        organization:
+          <<: *Org4
+          gateway_peers:
+            - <<: *Org4Peer1
+  roles:
+    - ibm.blockchain_platform_manager
