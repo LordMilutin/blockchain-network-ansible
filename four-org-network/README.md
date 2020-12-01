@@ -1,3 +1,6 @@
+# To view IBM Blockchain Platform tutorial
+click `IBM Blockchain Platform extension` -> `Add Environment` (in FABRIC ENVIRONMENTS) -> `Create new from template` (from pop-up) -> `Create additional local network (tutorial)`
+
 # Pre-requisites
 install python 3.7+
 
@@ -19,7 +22,7 @@ ansible-galaxy install ibm.blockchain_platform_manager
 # To Clean up
 ```ansible-playbook uninstall.yml```
 
-# Importing to Fabric Network in VScode IBM Blockchain Plateform
+# Importing to Fabric Network in VScode IBM Blockchain Platform
 Once your Ansible playbook has successfully ran, `nodes`, `gateways` and `wallets` directories should have been created.
 
 These contain all of the files needed to import your network and start interacting with it!
