@@ -62,8 +62,8 @@ fatal: [localhost]: FAILED! => {
   "stdout_lines": []
 }
 ```
-solution:
-`ansible-playbook uninstall.yml`
+> solution:
+> `ansible-playbook uninstall.yml`
 
 
 
@@ -76,8 +76,8 @@ fatal: [localhost]: FAILED! => {
   "msg": "Error inspecting container: (\"Connection broken: InvalidChunkLength(got length '', 0 bytes read)\", InvalidChunkLength(got length '', 0 bytes read))"
 }
 ```
-solution: 
-clean all docker container and images
+> solution: 
+> clean all docker container and images
 
 
 
@@ -101,17 +101,8 @@ fatal: [localhost]: FAILED! => {
   "stdout_lines": []
 }
 ```
-solution:
-check in the yml file, make sure `endorsement_policy` does not contain spaces in the string. 
-
-
-
-
-
-
-
-
-
+> solution:
+> check in the yml file, make sure `endorsement_policy` does not contain spaces in the string. 
 
 
 # four-org-network
