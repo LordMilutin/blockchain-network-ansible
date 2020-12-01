@@ -19,6 +19,24 @@ ansible-galaxy install ibm.blockchain_platform_manager
 # To Clean up
 ```ansible-playbook uninstall.yml```
 
+# Importing to Fabric Network in VScode IBM Blockchain Plateform
+Once your Ansible playbook has successfully ran, `nodes`, `gateways` and `wallets` directories should have been created.
+
+These contain all of the files needed to import your network and start interacting with it!
+
+1. Hover over the `Fabric Environments` panel on the left hand side of the screen and select the +.
+2. You will then be asked to `Select a method to add an environment`. Choose the `Add an Ansible-created network` option.
+3. You will then be prompted to select a directory to import.
+> If you have ran the the `four-org-network` playbook, you should select this directory.
+4. Give your network a name e.g. `ansibleNetwork`. Whatever you find easy to identify! Then press `Enter` which will import your Ansible network.
+5. If your Ansible Fabric network is running, you should see your new environment imported and any gateways and wallets.
+> Note: If you don't see any gateways and wallets, it could be because your Fabric network hasn't been started.
+>
+> Once you have run your Ansible playbook and your network has started, you can refresh the `Fabric Gateways` and `Fabric Wallets` panels to see your gateways and wallets.
+
+6. If your `four-org-network` generated Ansible Fabric network is running, you will see gateways `ansibleNetwork > Org[1-4] gateway` and wallets `ansibleNetwork > Org[1-4]`.
+>
+
 # Resolve Errors
 
 ### Invalid Chunk Length Error:
