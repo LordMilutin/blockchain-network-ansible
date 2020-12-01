@@ -1,4 +1,4 @@
-# To view IBM Blockchain Platform tutorial
+# To Access Tutorial Provided by IBM Blockchain Platform
 click `IBM Blockchain Platform extension` -> `Add Environment` (in FABRIC ENVIRONMENTS) -> `Create new from template` (from pop-up) -> `Create additional local network (tutorial)`
 
 # Pre-requisites
