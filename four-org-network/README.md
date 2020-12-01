@@ -42,6 +42,31 @@ These contain all of the files needed to import your network and start interacti
 
 # Resolve Errors
 
+### Signature Error (or other resource update related errors):
+```
+TASK [ibm.blockchain_platform_manager : Submit system channel configuration update envelope] *****************************************************************************************************************
+fatal: [localhost]: FAILED! => {
+  "changed": true, 
+  "cmd": ["peer", "channel", "update", "-f", "/var/folders/_c/1n9j573122d91nqp0dg1lyxc0000gn/T/ansible.OkzxsI/config_update_as_envelope.pb", "-o", "localhost:17051", "-c", "testchainid", "--tls", "--cafile", "/[Directory Path]/blockchain-network-ansible/one-org-network/wallets/Orderer/tls-root.pem", "--ordererTLSHostnameOverride", "orderer.example.com"], 
+  "delta": "0:00:00.034809", 
+  "end": "2020-11-30 09:13:38.770120", 
+  "msg": "non-zero return code", 
+  "rc": 1, 
+  "start": "2020-11-30 09:13:38.735311", 
+  "stderr": "\u001b[34m2020-11-30 09:13:38.763 EST [channelCmd] InitCmdFactory -> INFO 001\u001b[0m Endorser and orderer connections initialized\nError: got unexpected status: BAD_REQUEST -- error applying config update to existing channel 'testchainid': error authorizing update: error validating DeltaSet: policy for [Value]  /Channel/Consortiums/SampleConsortium/Org1MSP/MSP not satisfied: signature set did not satisfy policy", 
+  "stderr_lines": [
+    "\u001b[34m2020-11-30 09:13:38.763 EST [channelCmd] InitCmdFactory -> INFO 001\u001b[0m Endorser and orderer connections initialized", 
+    "Error: got unexpected status: BAD_REQUEST -- error applying config update to existing channel 'testchainid': error authorizing update: error validating DeltaSet: policy for [Value]  /Channel/Consortiums/SampleConsortium/Org1MSP/MSP not satisfied: signature set did not satisfy policy"
+  ], 
+  "stdout": "", 
+  "stdout_lines": []
+}
+```
+solution:
+`ansible-playbook uninstall.yml`
+
+
+
 ### Invalid Chunk Length Error:
 
 ```
@@ -81,28 +106,7 @@ check in the yml file, make sure `endorsement_policy` does not contain spaces in
 
 
 
-### Signature Error:
-```
-TASK [ibm.blockchain_platform_manager : Submit system channel configuration update envelope] *****************************************************************************************************************
-fatal: [localhost]: FAILED! => {
-  "changed": true, 
-  "cmd": ["peer", "channel", "update", "-f", "/var/folders/_c/1n9j573122d91nqp0dg1lyxc0000gn/T/ansible.OkzxsI/config_update_as_envelope.pb", "-o", "localhost:17051", "-c", "testchainid", "--tls", "--cafile", "/[Directory Path]/blockchain-network-ansible/one-org-network/wallets/Orderer/tls-root.pem", "--ordererTLSHostnameOverride", "orderer.example.com"], 
-  "delta": "0:00:00.034809", 
-  "end": "2020-11-30 09:13:38.770120", 
-  "msg": "non-zero return code", 
-  "rc": 1, 
-  "start": "2020-11-30 09:13:38.735311", 
-  "stderr": "\u001b[34m2020-11-30 09:13:38.763 EST [channelCmd] InitCmdFactory -> INFO 001\u001b[0m Endorser and orderer connections initialized\nError: got unexpected status: BAD_REQUEST -- error applying config update to existing channel 'testchainid': error authorizing update: error validating DeltaSet: policy for [Value]  /Channel/Consortiums/SampleConsortium/Org1MSP/MSP not satisfied: signature set did not satisfy policy", 
-  "stderr_lines": [
-    "\u001b[34m2020-11-30 09:13:38.763 EST [channelCmd] InitCmdFactory -> INFO 001\u001b[0m Endorser and orderer connections initialized", 
-    "Error: got unexpected status: BAD_REQUEST -- error applying config update to existing channel 'testchainid': error authorizing update: error validating DeltaSet: policy for [Value]  /Channel/Consortiums/SampleConsortium/Org1MSP/MSP not satisfied: signature set did not satisfy policy"
-  ], 
-  "stdout": "", 
-  "stdout_lines": []
-}
-```
-solution:
-`ansible-playbook uninstall.yml`
+
 
 
 
