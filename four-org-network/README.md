@@ -2,19 +2,51 @@
 click `IBM Blockchain Platform extension` -> `Add Environment` (in FABRIC ENVIRONMENTS) -> `Create new from template` (from pop-up) -> `Create additional local network (tutorial)`
 
 # Pre-requisites
-install python 3.7+
+- Python 3.7+ - [Official Installation Document](https://www.python.org/downloads/)
+- Ansible - [Official Installation Document](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+- Hyperledger Fabric v1.4 binaries - [Official Installation Document](https://hyperledger-fabric.readthedocs.io/en/release-1.4/install.html)
+- Docker 19.03+ - [Official Installation Document](https://docs.docker.com/engine/install/ubuntu/#installation-methods)
+- jq - [Official Installation Document](https://stedolan.github.io/jq/download/)
+- sponge 
+- IBM bloackchain platform manager ansible role  
 
-install pip
+> Note: 
+> After installing Hyperledger Fabric binaries, make sure you add the path in the `.bashrc`, `.zshrc` or other shell script your terminal uses. Add the below line to the end of the file
+> ```
+> export PATH=${PATH}:/[downloaded path for hyperledger fabric]/fabric-samples/bin
+> ```
 
-pip install ansible
 
-curl -sSL http://bit.ly/2ysbOFE | bash -s 
+### Unbuntu OS
+```
+sudo apt update
+sudo apt install python3
 
-brew install jq
+sudo apt install software-properties-common
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible
 
-brew install moreutils
+curl -sSL http://bit.ly/2ysbOFE | bash -s
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+sudo apt-get install jq
+
+apt-get install moreutils 
 
 ansible-galaxy install ibm.blockchain_platform_manager
+```
+
+### MacOS
+```
+brew install python3
+pip3 install ansible
+curl -sSL http://bit.ly/2ysbOFE | bash -s 
+brew install jq
+brew install moreutils
+ansible-galaxy install ibm.blockchain_platform_manager
+```
+
 
 # To Run
 ```ansible-playbook playbook.yml```
