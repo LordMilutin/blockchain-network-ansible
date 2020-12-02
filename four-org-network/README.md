@@ -13,7 +13,7 @@ click `IBM Blockchain Platform extension` -> `Add Environment` (in FABRIC ENVIRO
 > Note: 
 > After installing Hyperledger Fabric binaries, make sure you add the path in the `.bashrc`, `.zshrc` or other shell script your terminal uses. Add the below line to the end of the file
 > ```
-> export PATH=${PATH}:/[downloaded path for hyperledger fabric]/fabric-samples/bin
+> export PATH=${PATH}:/[download path for hyperledger fabric]/fabric-samples/bin
 > ```
 
 
