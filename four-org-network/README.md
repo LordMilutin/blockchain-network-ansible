@@ -74,6 +74,16 @@ These contain all of the files needed to import your network and start interacti
 
 # Resolve Errors
 
+### fabric-ca-client Error (or other fabric related errors):
+```
+"cmd": "fabric-ca-client enroll -u 'https://admin:********@localhost:18050' --caname ca -M /[Directory Path]/blockchain-network-ansible/four-org-network/wallets/Org1/admin --tls.certfiles /[Directory Path]/blockchain-network-ansible/four-org-network/wallets/Org1/ca-tls-root.pem", 
+"msg": "[Errno 2] No such file or directory: b'fabric-ca-client'", 
+"rc": 2
+```
+> solution:
+> install Hyperledger Fabric v1.4 binaries `curl -sSL http://bit.ly/2ysbOFE | bash -s `
+
+
 ### Signature Error (or other resource update related errors):
 ```
 TASK [ibm.blockchain_platform_manager : Submit system channel configuration update envelope] *****************************************************************************************************************
