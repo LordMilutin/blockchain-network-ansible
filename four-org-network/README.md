@@ -17,7 +17,7 @@ click `IBM Blockchain Platform extension` -> `Add Environment` (in FABRIC ENVIRO
 > ```
 
 
-### Unbuntu OS
+### Unbuntu
 ```
 sudo apt update
 sudo apt install python3
