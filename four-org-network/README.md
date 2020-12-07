@@ -2,6 +2,7 @@
 click `IBM Blockchain Platform extension` -> `Add Environment` (in FABRIC ENVIRONMENTS) -> `Create new from template` (from pop-up) -> `Create additional local network (tutorial)`
 
 # Pre-requisites
+- node v14.15.0
 - Python 3.7+ - [Official Installation Document](https://www.python.org/downloads/)
 - Ansible - [Official Installation Document](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 - Hyperledger Fabric v1.4 binaries - [Official Installation Document](https://hyperledger-fabric.readthedocs.io/en/release-1.4/install.html)
