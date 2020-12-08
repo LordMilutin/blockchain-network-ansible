@@ -4,6 +4,7 @@ click `IBM Blockchain Platform extension` -> `Add Environment` (in FABRIC ENVIRO
 # Pre-requisites
 - node v14.15.0
 - Python 3.7+ - [Official Installation Document](https://www.python.org/downloads/)
+- Pip - [Official Installation Document](https://pip.pypa.io/en/stable/installing/)
 - Ansible - [Official Installation Document](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 - Hyperledger Fabric v1.4 binaries - [Official Installation Document](https://hyperledger-fabric.readthedocs.io/en/release-1.4/install.html)
 - Docker 19.03+ - [Official Installation Document](https://docs.docker.com/engine/install/ubuntu/#installation-methods)
@@ -11,32 +12,46 @@ click `IBM Blockchain Platform extension` -> `Add Environment` (in FABRIC ENVIRO
 - sponge 
 - IBM bloackchain platform manager ansible role  
 
+### Unbuntu
+```
+# install python3
+sudo apt update
+sudo apt install python3
+
+# install pip
+sudo apt install python3-pip
+
+# install ansible
+sudo apt install software-properties-common
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible
+
+# install fabric example, make sure you know where it is being downloaded, you will need it in the Note section
+curl -sSL http://bit.ly/2ysbOFE | bash -s
+
+# install docker
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+# install docker SDK for python
+pip3 install docker
+
+# install jq
+sudo apt-get install jq
+
+# install sponge
+sudo apt-get install moreutils 
+
+# install ansible role
+ansible-galaxy install ibm.blockchain_platform_manager
+```
+
 > Note: 
 > After installing Hyperledger Fabric binaries, make sure you add the path in the `.bashrc`, `.zshrc` or other shell script your terminal uses. Add the below line to the end of the file
 > ```
 > export PATH=${PATH}:/[download path for hyperledger fabric]/fabric-samples/bin
 > ```
+> After saving and closing the shell script, make sure you run `source .bashrc` (or `source .zshrc`, etc) in the terminal where you run `ansible`.
 
-
-### Unbuntu
-```
-sudo apt update
-sudo apt install python3
-
-sudo apt install software-properties-common
-sudo apt-add-repository --yes --update ppa:ansible/ansible
-sudo apt install ansible
-
-curl -sSL http://bit.ly/2ysbOFE | bash -s
-
-sudo apt-get install docker-ce docker-ce-cli containerd.io
-
-sudo apt-get install jq
-
-apt-get install moreutils 
-
-ansible-galaxy install ibm.blockchain_platform_manager
-```
 
 ### MacOS
 ```
