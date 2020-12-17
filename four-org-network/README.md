@@ -106,7 +106,7 @@ Run this command in `blockchain-network-ansible/four-org-network` folder
 ansible-playbook playbook.yml 
 ```
 Once the network is setup succesfully, you should see something similiar to the following when you do `docker ps`
-```bash
+```shell
 CONTAINER ID   IMAGE                                                                                                            COMMAND                  CREATED        STATUS        PORTS                                            NAMES
 272ec861cec1   hyperledger/fabric-orderer:1.4.6                                                                                 "orderer"                6 days ago     Up 2 days     7050/tcp, 0.0.0.0:17051-17052->17051-17052/tcp   orderer.example.com
 0c92e6b0cee2   hyperledger/fabric-ca:1.4.6                                                                                      "sh -c 'fabric-ca-se…"   6 days ago     Up 2 days     7054/tcp, 0.0.0.0:17050->17050/tcp               ca.orderer.example.com
@@ -154,7 +154,7 @@ These contain all of the files needed to import your network and start interacti
 ## Known Errors
 
 ### fabric-ca-client Error (or other fabric related errors):
-```
+```shell
 "cmd": "fabric-ca-client enroll -u 'https://admin:********@localhost:18050' --caname ca -M /[Directory Path]/blockchain-network-ansible/four-org-network/wallets/Org1/admin --tls.certfiles /[Directory Path]/blockchain-network-ansible/four-org-network/wallets/Org1/ca-tls-root.pem", 
 "msg": "[Errno 2] No such file or directory: b'fabric-ca-client'", 
 "rc": 2
@@ -164,7 +164,7 @@ These contain all of the files needed to import your network and start interacti
 
 
 ### Signature Error (or other resource update related errors):
-```
+```shell
 TASK [ibm.blockchain_platform_manager : Submit system channel configuration update envelope] *****************************************************************************************************************
 fatal: [localhost]: FAILED! => {
   "changed": true, 
@@ -189,8 +189,7 @@ fatal: [localhost]: FAILED! => {
 
 
 ### Invalid Chunk Length Error:
-
-```
+```shell
 TASK [ibm.blockchain_platform_manager : Start peer container] ************************************************************************************************************************************************
 fatal: [localhost]: FAILED! => {
   "changed": false, 
@@ -203,7 +202,7 @@ fatal: [localhost]: FAILED! => {
 
 
 ### Contract Endorsement Error:
-```
+```shell
 TASK [ibm.blockchain_platform_manager : Submit system channel configuration update envelope] ***************************
 fatal: [localhost]: FAILED! => {
   "changed": true, 
