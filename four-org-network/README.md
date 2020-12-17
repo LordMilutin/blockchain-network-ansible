@@ -1,7 +1,8 @@
-# To Access Tutorial Provided by IBM Blockchain Platform
+#### To Access Tutorial Provided by IBM Blockchain Platform
 click `IBM Blockchain Platform extension` -> `Add Environment` (in FABRIC ENVIRONMENTS) -> `Create new from template` (from pop-up) -> `Create additional local network (tutorial)`
 
-# Pre-requisites
+# Installation 
+### Pre-requisites
 - node v14.15.0
 - Python 3.7+ - [Official Installation Document](https://www.python.org/downloads/)
 - Pip - [Official Installation Document](https://pip.pypa.io/en/stable/installing/)
