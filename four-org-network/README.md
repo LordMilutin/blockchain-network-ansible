@@ -48,7 +48,7 @@ ansible-galaxy install ibm.blockchain_platform_manager
 
 > Note: 
 > After installing Hyperledger Fabric binaries, make sure you add the path in the `.bashrc`, `.zshrc` or other shell script your terminal uses. Add the below line to the end of the file
-> ```
+> ```bash
 > export PATH=${PATH}:/[download path for hyperledger fabric]/fabric-samples/bin
 > ```
 > After saving and closing the shell script, make sure you run `source .bashrc` (or `source .zshrc`, etc) in the terminal where you run `ansible`.
