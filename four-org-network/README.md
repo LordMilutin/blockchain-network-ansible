@@ -1,8 +1,38 @@
-#### To Access Tutorial Provided by IBM Blockchain Platform
-click `IBM Blockchain Platform extension` -> `Add Environment` (in FABRIC ENVIRONMENTS) -> `Create new from template` (from pop-up) -> `Create additional local network (tutorial)`
+<a  href="https://mavennet.com/">
+	<img  alt="Mavennet"  src="https://mavennet-website.s3.amazonaws.com/assets/logo-dark.png"  width="300" />
+</a>
 
-# Installation 
-### Pre-requisites
+# Four Org Network
+
+This repository is a fork from [IBM-Blockchain/ansible-examples](https://github.com/IBM-Blockchain/ansible-examples). This particular folder contains setups for a blockchain network with four organizations, a dependency for [Neoflow Oil Backend](https://github.com/Mavennet/neoflow-oil-pilot-BE). In this README.md, you'll have all the necessary information to get started with the project, to run it, to deploy it and other general guidelines. Have fun XD
+
+#### Related Projects:
+[Neoflow Oil Backend](https://github.com/Mavennet/neoflow-oil-pilot-BE)
+
+## Table of Contents
+- [Background](#four-org-network)
+  - [Related Projects](#related-projects)
+- [Quick Start](#quick-start)
+  - [Reference](#reference)
+  - [Prerequisites](#prerequisites)
+    - [Installing on Ubuntu](#installing-on-ubuntu)
+    - [Installing on MacOS](#installing-on-macos)
+  - [Setup](#setup)
+  - [To Run](#to-run)
+  - [To Clean Up](#to-clean-up)
+  - [Importing to Fabric Network](#importing-to-fabric-network-in-vscode-ibm-blockchain-platform)
+- [Known Errors](#known-errors)
+- [Original README from IBM](#two-org-network)
+  
+
+## Quick Start
+
+### Reference
+**To Access Tutorial Provided by IBM Blockchain Platform:**
+
+In VScode, click `IBM Blockchain Platform extension` -> `Add Environment` (in FABRIC ENVIRONMENTS) -> `Create new from template` (from pop-up) -> `Create additional local network (tutorial)`
+
+### Prerequisites
 - node v14.15.0
 - Python 3.7+ - [Official Installation Document](https://www.python.org/downloads/)
 - Pip - [Official Installation Document](https://pip.pypa.io/en/stable/installing/)
@@ -13,7 +43,7 @@ click `IBM Blockchain Platform extension` -> `Add Environment` (in FABRIC ENVIRO
 - sponge 
 - IBM bloackchain platform manager ansible role  
 
-#### Unbuntu
+#### Installing on Ubuntu
 ```bash
 # install python3
 sudo apt update
@@ -54,7 +84,7 @@ ansible-galaxy install ibm.blockchain_platform_manager
 > After saving and closing the shell script, make sure you run `source .bashrc` (or `source .zshrc`, etc) in the terminal where you run `ansible`.
 
 
-#### MacOS
+#### Installing on MacOS
 ```bash
 brew install python3
 pip3 install ansible
@@ -64,28 +94,20 @@ brew install moreutils
 ansible-galaxy install ibm.blockchain_platform_manager
 ```
 
-### setup
+### Setup
 ```bash
 git clone git@github.com:Mavennet/blockchain-network-ansible.git
 cd blockchain-network-ansible/four-org-network
 ```
 
-# To Run
-Run this command in `blockchain-network-ansibl/four-org-network` folder
+### To Run
+Run this command in `blockchain-network-ansible/four-org-network` folder
 ```bash
 ansible-playbook playbook.yml 
 ```
 Once the network is setup succesfully, you should see something similiar to the following when you do `docker ps`
 ```bash
 CONTAINER ID   IMAGE                                                                                                            COMMAND                  CREATED        STATUS        PORTS                                            NAMES
-df7cc13be2c6   dev-org3peer2-neoflow-oil-traceability-0.0.30-ac10a585fdfacf23a5be67558071cb2a081a5d4175ecaedee1b506012db7637d   "/bin/sh -c 'cd /usr…"   24 hours ago   Up 24 hours                                                    dev-Org3Peer2-neoflow-oil-traceability-0.0.30
-1e268b5862f4   dev-org4peer2-neoflow-oil-traceability-0.0.30-51f72c62659784b77118454fca103a7af489ab1b66c6bab377aa59ce3e8fe565   "/bin/sh -c 'cd /usr…"   24 hours ago   Up 24 hours                                                    dev-Org4Peer2-neoflow-oil-traceability-0.0.30
-7790d0405dde   dev-org4peer1-neoflow-oil-traceability-0.0.30-57457205ab462f280f6ed2defce76d3806abdc02eac377e34638b8f66cac01b5   "/bin/sh -c 'cd /usr…"   24 hours ago   Up 24 hours                                                    dev-Org4Peer1-neoflow-oil-traceability-0.0.30
-c73c17240c15   dev-org3peer1-neoflow-oil-traceability-0.0.30-624bd6fa3aded24a1064e9823eca49c91cb42cef270131b06eb5920401b212e6   "/bin/sh -c 'cd /usr…"   25 hours ago   Up 25 hours                                                    dev-Org3Peer1-neoflow-oil-traceability-0.0.30
-68a206bdb226   dev-org2peer1-neoflow-oil-traceability-0.0.30-5366bb5f064cd85573a4f0d7719e53f50f7159062cabd14ee3709fe7e44c5c2e   "/bin/sh -c 'cd /usr…"   2 days ago     Up 2 days                                                      dev-Org2Peer1-neoflow-oil-traceability-0.0.30
-1345277fe623   dev-org2peer2-neoflow-oil-traceability-0.0.30-978e1de0ac37b9b6f21806db3892c05998090fd3f931f9a4c07d72b22d530a2f   "/bin/sh -c 'cd /usr…"   2 days ago     Up 2 days                                                      dev-Org2Peer2-neoflow-oil-traceability-0.0.30
-3a6996b1f521   dev-org1peer2-neoflow-oil-traceability-0.0.30-7c3d4794ea795d0fc330580f750162a6c7c21a7638a72847d9181ff0d3cf5e74   "/bin/sh -c 'cd /usr…"   2 days ago     Up 2 days                                                      dev-Org1Peer2-neoflow-oil-traceability-0.0.30
-3b280319e24c   dev-org1peer1-neoflow-oil-traceability-0.0.30-d5a6bf124e6f46024aa29286e703bcd88eec5730d6534fac48291fc8a2aa9bb1   "/bin/sh -c 'cd /usr…"   2 days ago     Up 2 days                                                      dev-Org1Peer1-neoflow-oil-traceability-0.0.30
 272ec861cec1   hyperledger/fabric-orderer:1.4.6                                                                                 "orderer"                6 days ago     Up 2 days     7050/tcp, 0.0.0.0:17051-17052->17051-17052/tcp   orderer.example.com
 0c92e6b0cee2   hyperledger/fabric-ca:1.4.6                                                                                      "sh -c 'fabric-ca-se…"   6 days ago     Up 2 days     7054/tcp, 0.0.0.0:17050->17050/tcp               ca.orderer.example.com
 1c78b0b2c353   hyperledger/fabric-peer:1.4.6                                                                                    "peer node start"        6 days ago     Up 2 days     0.0.0.0:21055-21057->21055-21057/tcp             peer1.org4.example.com
@@ -105,13 +127,13 @@ fac658770843   couchdb:2.3.1                                                    
 
 ```
 
-# To Clean up
-Run this command in `blockchain-network-ansibl/four-org-network` folder
+### To Clean up
+Run this command in `blockchain-network-ansible/four-org-network` folder
 ```bash
 ansible-playbook uninstall.yml # this command should be ran in /four-org-network folder
 ```
 
-# Importing to Fabric Network in VScode IBM Blockchain Platform
+### Importing to Fabric Network in VScode IBM Blockchain Platform
 Once your Ansible playbook has successfully ran, `nodes`, `gateways` and `wallets` directories should have been created.
 
 These contain all of the files needed to import your network and start interacting with it!
@@ -129,7 +151,7 @@ These contain all of the files needed to import your network and start interacti
 6. If your `four-org-network` generated Ansible Fabric network is running, you will see gateways `ansibleNetwork > Org[1-4] gateway` and wallets `ansibleNetwork > Org[1-4]`.
 >
 
-# Resolve Errors
+## Known Errors
 
 ### fabric-ca-client Error (or other fabric related errors):
 ```
@@ -204,9 +226,11 @@ fatal: [localhost]: FAILED! => {
 > check in the yml file, make sure `endorsement_policy` does not contain spaces in the string. 
 
 
-# four-org-network
+___
 
-An Ansible playbook for building a Hyperledger Fabric network with four organizations, `Org1`, `Org2`, `Org3` and `Org4`. Each organization has two peers. The two peers are configured with a single channel, `channel1`. The FabCar sample contract is instantiated on this channel, with an endorsement policy stating that all organizations must endorse any transactions.
+# two-org-network
+
+An Ansible playbook for building a Hyperledger Fabric network with two organizations, `Org1` and `Org2`. Each organization has two peers. The two peers are configured with a single channel, `channel1`. The FabCar sample contract is instantiated on this channel, with an endorsement policy stating that all organizations must endorse any transactions.
 
 To run this Ansible playbook, follow these steps:
 
